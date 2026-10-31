@@ -14,7 +14,6 @@ import {
 } from '@gitroom/nestjs-libraries/dtos/webhooks/ssrf.safe.dispatcher';
 import sharp from 'sharp';
 import { createReadStream, readFileSync, statSync } from 'fs';
-import { resolve, sep } from 'path';
 import { Readable } from 'stream';
 
 // Media reads answer headers in well under a second and the chunk sizes the
