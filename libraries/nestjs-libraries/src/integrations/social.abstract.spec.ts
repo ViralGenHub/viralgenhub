@@ -125,4 +125,35 @@ describe('media reads (mediaSize, mediaStream, mediaChunk, readOrFetch)', () => 
       provider.size('https://cdn.other.com/uploads/clip.mp4')
     ).rejects.toThrow('Could not determine the media size for upload');
   });
+
+  it('reads a bare disk path only inside the upload directory', async () => {
+    const inside = join(root, '2026', '10', '25', 'clip.mp4');
+    expect(await provider.size(inside)).toBe('video-bytes'.length);
+
+    const outside = join(tmpdir(), 'vgh-outside.png');
+    writeFileSync(outside, 'secret');
+    const escape = join(root, '..', 'vgh-outside.png');
+    for (const path of [outside, escape]) {
+      await expect(provider.size(path)).rejects.toThrow(
+        'not in the upload directory'
+      );
+      await expect(provider.stream(path)).rejects.toThrow(
+        'not in the upload directory'
+      );
+      await expect(provider.chunk(path, 0, 2)).rejects.toThrow(
+        'not in the upload directory'
+      );
+      await expect(provider.read(path)).rejects.toThrow(
+        'not in the upload directory'
+      );
+    }
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('refuses every bare disk path when no upload directory is set', async () => {
+    delete process.env.UPLOAD_DIRECTORY;
+    await expect(
+      provider.size(join(root, '2026', '10', '25', 'clip.mp4'))
+    ).rejects.toThrow('not in the upload directory');
+  });
 });
