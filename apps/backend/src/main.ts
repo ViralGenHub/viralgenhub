@@ -33,6 +33,7 @@ async function start() {
         'impersonate',
         'x-postiz-org',
         'x-postiz-include-deleted',
+        'x-turnstile-token',
         'x-copilotkit-runtime-client-gql-version',
       ],
       exposedHeaders: [
