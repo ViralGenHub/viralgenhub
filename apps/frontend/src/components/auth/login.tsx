@@ -15,6 +15,10 @@ import { AppleProvider } from '@gitroom/frontend/components/auth/providers/apple
 import { useVariables } from '@gitroom/react/helpers/variable.context';
 import { FarcasterProvider } from '@gitroom/frontend/components/auth/providers/farcaster.provider';
 import { useT } from '@gitroom/react/translation/get.transation.service.client';
+import {
+  responseErrorText,
+  useTurnstile,
+} from '@gitroom/frontend/components/auth/turnstile';
 type Inputs = {
   email: string;
   password: string;
@@ -51,18 +55,30 @@ export function Login() {
     },
   });
   const fetchData = useFetch();
+  const turnstile = useTurnstile();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (turnstile.enabled && !turnstile.token) {
+      form.setError('email', {
+        message: t(
+          'vgh_security_check_wait',
+          'Please complete the security check first.'
+        ),
+      });
+      return;
+    }
     setLoading(true);
     setNotActivated(false);
     const login = await fetchData('/auth/login', {
       method: 'POST',
+      headers: turnstile.headers(),
       body: JSON.stringify({
         ...data,
         provider: 'LOCAL',
       }),
     });
     if (login.status === 400) {
-      const errorMessage = await login.text();
+      const errorMessage = await responseErrorText(login);
+      turnstile.reset();
       if (errorMessage === 'User is not activated') {
         setNotActivated(true);
       } else {
@@ -143,6 +159,7 @@ export function Login() {
                   </Link>
                 </div>
               )}
+              {turnstile.widget}
               <div className="text-center mt-6">
                 <div className="w-full flex">
                   <Button

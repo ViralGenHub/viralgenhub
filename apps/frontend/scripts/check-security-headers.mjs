@@ -24,7 +24,7 @@ assert.match(h['Permissions-Policy'], /camera=\(\)/);
 assert.match(h['Permissions-Policy'], /microphone=\(\)/);
 assert.match(h['Permissions-Policy'], /geolocation=\(\)/);
 assert.ok(!/report-(uri|to)/.test(cspReportOnly), 'CSP must not send reports to a third party');
-for (const need of ['https://media.viralgenhub.com', 'js.stripe.com', 'google.com/recaptcha', "frame-ancestors 'self'", "object-src 'none'"]) {
+for (const need of ['https://media.viralgenhub.com', 'js.stripe.com', 'google.com/recaptcha', 'challenges.cloudflare.com', "frame-ancestors 'self'", "object-src 'none'"]) {
   assert.ok(cspReportOnly.includes(need), `CSP lacks ${need}`);
 }
 console.log('security headers config OK');

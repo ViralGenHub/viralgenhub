@@ -42,6 +42,8 @@ interface VariableContextInterface {
   googleAdsId?: string;
   googleAdsTrialTracking?: string;
   recaptchaSiteKey?: string;
+  // TURNSTILE_SITE_KEY: shows the Cloudflare check on email sign-up and login
+  turnstileSiteKey?: string;
 }
 const VariableContext = createContext({
   stripeClient: '',
@@ -78,6 +80,7 @@ const VariableContext = createContext({
   extensionId: '',
   extensionIds: '',
   recaptchaSiteKey: '',
+  turnstileSiteKey: '',
 } as VariableContextInterface);
 export const VariableContextComponent: FC<
   VariableContextInterface & {

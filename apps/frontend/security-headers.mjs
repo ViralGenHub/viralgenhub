@@ -15,6 +15,7 @@ export const cspReportOnly = [
     "script-src 'self' 'unsafe-inline'",
     'https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/',
     'https://js.stripe.com',
+    'https://challenges.cloudflare.com', // Turnstile
     'https://accounts.google.com/gsi/client https://appleid.cdn-apple.com',
     'https://www.googletagmanager.com https://connect.facebook.net https://*.posthog.com',
   ].join(' '),
@@ -37,6 +38,7 @@ export const cspReportOnly = [
     "frame-src 'self'",
     'https://www.google.com/recaptcha/ https://recaptcha.google.com',
     'https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com',
+    'https://challenges.cloudflare.com', // Turnstile widget frame
     'https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com https://www.loom.com',
     'https://accounts.google.com https://appleid.apple.com https://www.googletagmanager.com',
   ].join(' '),

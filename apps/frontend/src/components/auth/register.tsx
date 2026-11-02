@@ -22,6 +22,10 @@ import { TrackEnum } from '@gitroom/nestjs-libraries/user/track.enum';
 import { FarcasterProvider } from '@gitroom/frontend/components/auth/providers/farcaster.provider';
 import { useT } from '@gitroom/react/translation/get.transation.service.client';
 import useCookie from 'react-use-cookie';
+import {
+  responseErrorText,
+  useTurnstile,
+} from '@gitroom/frontend/components/auth/turnstile';
 type Inputs = {
   email: string;
   password: string;
@@ -117,10 +121,22 @@ export function RegisterAfter({
     },
   });
   const fetchData = useFetch();
+  // email sign-up only: social sign-in is already verified by the provider
+  const turnstile = useTurnstile(!isAfterProvider);
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (turnstile.enabled && !turnstile.token) {
+      form.setError('email', {
+        message: t(
+          'vgh_security_check_wait',
+          'Please complete the security check first.'
+        ),
+      });
+      return;
+    }
     setLoading(true);
     await fetchData('/auth/register', {
       method: 'POST',
+      headers: turnstile.headers(),
       body: JSON.stringify({
         ...data,
         datafast_visitor_id,
@@ -138,8 +154,9 @@ export function RegisterAfter({
             }
           });
         } else {
+          turnstile.reset();
           form.setError('email', {
-            message: await response.text(),
+            message: await responseErrorText(response),
           });
         }
       })
@@ -245,6 +262,7 @@ export function RegisterAfter({
                 </a>
                 &nbsp;
               </div>
+              {turnstile.widget}
               <div className="text-center mt-6">
                 <div className="w-full flex">
                   <Button
