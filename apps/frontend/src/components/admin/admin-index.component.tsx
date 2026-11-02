@@ -143,6 +143,16 @@ export const AdminIndexComponent: FC = () => {
             text="Every account, plan and channel count. Disable a login."
           />
           <LinkCard
+            href="/admin/insights"
+            title="Sign-up insights"
+            text="How far each sign-up got, and which look automated."
+          />
+          <LinkCard
+            href="/admin/funnel"
+            title="Funnel"
+            text="Sign-up to confirmed to channel to post to paid."
+          />
+          <LinkCard
             href="/admin/errors"
             title="Errors"
             text="Publishing and connection errors, by platform."

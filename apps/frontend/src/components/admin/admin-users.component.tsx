@@ -2,6 +2,7 @@
 
 import React, { FC, useCallback, useState } from 'react';
 import useSWR from 'swr';
+import Link from 'next/link';
 import clsx from 'clsx';
 import { useFetch } from '@gitroom/helpers/utils/custom.fetch';
 import { useUser } from '@gitroom/frontend/components/layout/user.context';
@@ -160,7 +161,10 @@ export const AdminUsersComponent: FC = () => {
         <div className="text-[20px] font-[600]">
           {t('admin_users_title', 'Users')}
         </div>
-        <div className="text-[13px] opacity-70">
+        <div className="text-[13px] opacity-70 flex gap-[16px]">
+          <Link href="/admin/insights" className="underline">
+            {t('vgh_admin_insights_link', 'Sign-up insights')}
+          </Link>
           {data ? `${data.total} total` : ''}
         </div>
       </div>
