@@ -10,6 +10,9 @@ on:
       - 'libraries/nestjs-libraries/**'
       - 'libraries/helpers/**'
       - 'apps/backend/src/api/routes/users.controller*'
+      - 'apps/backend/src/api/routes/admin.insights.controller*'
+      - 'apps/frontend/security-headers.mjs'
+      - 'apps/frontend/scripts/check-security-headers.mjs'
       - 'libraries/react-shared-libraries/src/translation/locales/**'
       - 'scripts/check-json-duplicate-keys.mjs'
       - 'package.json'
@@ -20,6 +23,9 @@ on:
       - 'libraries/nestjs-libraries/**'
       - 'libraries/helpers/**'
       - 'apps/backend/src/api/routes/users.controller*'
+      - 'apps/backend/src/api/routes/admin.insights.controller*'
+      - 'apps/frontend/security-headers.mjs'
+      - 'apps/frontend/scripts/check-security-headers.mjs'
       - 'libraries/react-shared-libraries/src/translation/locales/**'
       - 'scripts/check-json-duplicate-keys.mjs'
       - 'package.json'
@@ -50,6 +56,9 @@ jobs:
 
       - name: Translation JSON has no duplicate keys (#223, needs no install)
         run: pnpm run lint:json
+
+      - name: Security headers config (CSP allows Turnstile, stays report-only)
+        run: node apps/frontend/scripts/check-security-headers.mjs
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

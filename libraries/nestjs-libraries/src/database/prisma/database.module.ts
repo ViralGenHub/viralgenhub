@@ -51,6 +51,8 @@ import { ErrorsService } from '@gitroom/nestjs-libraries/database/prisma/errors/
 import { AdminStatsRepository } from '@gitroom/nestjs-libraries/database/prisma/admin-stats/admin-stats.repository';
 import { AdminSettingsService } from '@gitroom/nestjs-libraries/database/prisma/admin-settings/admin-settings.service';
 import { AdminStatsService } from '@gitroom/nestjs-libraries/database/prisma/admin-stats/admin-stats.service';
+import { AdminInsightsRepository } from '@gitroom/nestjs-libraries/database/prisma/admin-insights/admin-insights.repository';
+import { AdminInsightsService } from '@gitroom/nestjs-libraries/database/prisma/admin-insights/admin-insights.service';
 import { NewAccountGateService } from '@gitroom/nestjs-libraries/database/prisma/admin-insights/new-account-gate.service';
 import { AccountPurgeRepository } from '@gitroom/nestjs-libraries/database/prisma/account-purge/account-purge.repository';
 import { AccountPurgeService } from '@gitroom/nestjs-libraries/database/prisma/account-purge/account-purge.service';
@@ -119,6 +121,8 @@ import { EarlyAccessService } from '@gitroom/nestjs-libraries/database/prisma/ea
     AccountPurgeRepository,
     AccountPurgeService,
     NewAccountGateService,
+    AdminInsightsRepository,
+    AdminInsightsService,
     EarlyAccessRepository,
     EarlyAccessService,
   ],
