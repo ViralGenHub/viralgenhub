@@ -10,6 +10,7 @@ import {
   publicApiLimitMessage,
   secondsUntilUtcMidnight,
 } from '@gitroom/nestjs-libraries/throttler/public.api.limit';
+import { NewAccountGateService } from '@gitroom/nestjs-libraries/database/prisma/admin-insights/new-account-gate.service';
 import { setSentryUserContext } from '@gitroom/nestjs-libraries/sentry/initialize.sentry';
 
 @Injectable()
@@ -18,7 +19,8 @@ export class PublicAuthMiddleware implements NestMiddleware {
 
   constructor(
     private _organizationService: OrganizationService,
-    private _oauthService: OAuthService
+    private _oauthService: OAuthService,
+    private _newAccountGate: NewAccountGateService
   ) {}
 
   private setOrg(req: Request, org: Organization) {
@@ -59,6 +61,20 @@ export class PublicAuthMiddleware implements NestMiddleware {
           res
             .status(HttpStatus.UNAUTHORIZED)
             .json({ msg: 'Invalid API key' });
+          return;
+        }
+      }
+
+      // ViralGenHub: a workspace under 24 hours old with no channel cannot use
+      // an API key yet (web OAuth logins, including MCP, are not affected).
+      if (!isOAuthApp) {
+        const gate = await this._newAccountGate.check(org as any);
+        if (!gate.allowed) {
+          res.status(HttpStatus.FORBIDDEN).json({
+            msg: gate.msg,
+            code: 'new_account_api_delay',
+            availableAt: gate.availableAt.toISOString(),
+          });
           return;
         }
       }
