@@ -12,7 +12,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { PostsService } from '@gitroom/nestjs-libraries/database/prisma/posts/posts.service';
 import { TrackService } from '@gitroom/nestjs-libraries/track/track.service';
-import { RealIP } from 'nestjs-real-ip';
+import { ClientIp } from '@gitroom/nestjs-libraries/user/client.ip';
 import { UserAgent } from '@gitroom/nestjs-libraries/user/user.agent';
 import { TrackEnum } from '@gitroom/nestjs-libraries/user/track.enum';
 import { Request, Response } from 'express';
@@ -83,7 +83,7 @@ export class PublicController {
   async createComment(
     @Param('id') postId: string,
     @Body() body: CreatePublicCommentDto,
-    @RealIP() ip: string
+    @ClientIp() ip: string
   ) {
     return this._postsService.createPublicComment(postId, body, null, ip);
   }
@@ -92,7 +92,7 @@ export class PublicController {
   async trackEvent(
     @Res() res: Response,
     @Req() req: Request,
-    @RealIP() ip: string,
+    @ClientIp() ip: string,
     @UserAgent() userAgent: string,
     @Body()
     body: { fbclid?: string; tt: TrackEnum; additional: Record<string, any> }

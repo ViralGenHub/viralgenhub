@@ -33,7 +33,7 @@ import { EmailNotificationsDto } from '@gitroom/nestjs-libraries/dtos/users/emai
 import { WhatsNewSeenDto } from '@gitroom/nestjs-libraries/dtos/users/whats-new-seen.dto';
 import { isKnownWhatsNewId } from '@gitroom/helpers/utils/whats.new';
 import { HttpForbiddenException } from '@gitroom/nestjs-libraries/services/exception.filter';
-import { RealIP } from 'nestjs-real-ip';
+import { ClientIp } from '@gitroom/nestjs-libraries/user/client.ip';
 import { UserAgent } from '@gitroom/nestjs-libraries/user/user.agent';
 import { TrackEnum } from '@gitroom/nestjs-libraries/user/track.enum';
 import { TrackService } from '@gitroom/nestjs-libraries/track/track.service';
@@ -174,7 +174,7 @@ export class UsersController {
     @Body('id') id: string,
     @Res({ passthrough: true }) response: Response,
     @Req() req: Request,
-    @RealIP() ip: string
+    @ClientIp() ip: string
   ) {
     if (!user.isSuperAdmin) {
       await this.auditImpersonation('denied', user, req, ip);
@@ -519,7 +519,7 @@ export class UsersController {
     @Res({ passthrough: true }) res: Response,
     @Req() req: Request,
     @GetUserFromRequest() user: User,
-    @RealIP() ip: string,
+    @ClientIp() ip: string,
     @UserAgent() userAgent: string,
     @Body()
     body: { tt: TrackEnum; fbclid: string; additional: Record<string, any> }

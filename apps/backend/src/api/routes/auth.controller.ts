@@ -23,7 +23,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { getCookieUrlFromDomain } from '@gitroom/helpers/subdomain/subdomain.management';
 import { setAuth } from '@gitroom/backend/services/auth/auth.middleware';
 import { EmailService } from '@gitroom/nestjs-libraries/services/email.service';
-import { RealIP } from 'nestjs-real-ip';
+import { ClientIp } from '@gitroom/nestjs-libraries/user/client.ip';
 import { UserAgent } from '@gitroom/nestjs-libraries/user/user.agent';
 import { Provider } from '@prisma/client';
 import { makeSecureId } from '@gitroom/nestjs-libraries/services/make.secure.id';
@@ -53,7 +53,7 @@ export class AuthController {
     @Req() req: Request,
     @Body() body: CreateOrgUserDto,
     @Res({ passthrough: false }) response: Response,
-    @RealIP() ip: string,
+    @ClientIp() ip: string,
     @UserAgent() userAgent: string
   ) {
     try {
@@ -116,7 +116,7 @@ export class AuthController {
     @Req() req: Request,
     @Body() body: LoginUserDto,
     @Res({ passthrough: false }) response: Response,
-    @RealIP() ip: string,
+    @ClientIp() ip: string,
     @UserAgent() userAgent: string
   ) {
     try {
