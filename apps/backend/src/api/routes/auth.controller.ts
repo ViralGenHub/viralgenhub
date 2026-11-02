@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { ThrottlerRealIpGuard } from '@gitroom/nestjs-libraries/throttler/throttler.provider';
+import { TurnstileGuard } from '@gitroom/nestjs-libraries/security/turnstile.guard';
+import { DisposableEmailGuard } from '@gitroom/nestjs-libraries/security/disposable-email.guard';
 import { Response, Request } from 'express';
 
 import { CreateOrgUserDto } from '@gitroom/nestjs-libraries/dtos/auth/create.org.user.dto';
@@ -46,7 +48,7 @@ export class AuthController {
   }
 
   // sign-up abuse: 5 accounts an hour per address
-  @UseGuards(ThrottlerRealIpGuard)
+  @UseGuards(ThrottlerRealIpGuard, DisposableEmailGuard, TurnstileGuard)
   @Throttle({ default: { limit: 5, ttl: 3600000 } })
   @Post('/register')
   async register(
@@ -109,7 +111,7 @@ export class AuthController {
   }
 
   // credential stuffing: 10 attempts per 15 minutes per address
-  @UseGuards(ThrottlerRealIpGuard)
+  @UseGuards(ThrottlerRealIpGuard, TurnstileGuard)
   @Throttle({ default: { limit: 10, ttl: 900000 } })
   @Post('/login')
   async login(
