@@ -4,9 +4,12 @@
 // OAuth login) are not affected, and neither are excluded workspaces.
 export const NEW_ACCOUNT_API_DELAY_MS = 24 * 60 * 60 * 1000;
 
-export type NewAccountGate =
-  | { allowed: true }
-  | { allowed: false; availableAt: Date; msg: string };
+// (the repo compiles without strictNullChecks, so this is not a tagged union)
+export interface NewAccountGate {
+  allowed: boolean;
+  availableAt?: Date;
+  msg?: string;
+}
 
 export const newAccountApiGate = (input: {
   createdAt: Date | string;

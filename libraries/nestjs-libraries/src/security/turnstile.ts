@@ -10,9 +10,12 @@ export const TURNSTILE_HEADER = 'x-turnstile-token';
 export const TURNSTILE_VERIFY_URL =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
-export type TurnstileResult =
-  | { ok: true; skipped?: boolean }
-  | { ok: false; message: string };
+// (the repo compiles without strictNullChecks, so this is not a tagged union)
+export interface TurnstileResult {
+  ok: boolean;
+  skipped?: boolean;
+  message?: string;
+}
 
 export const TURNSTILE_MESSAGES = {
   missing: 'Please complete the security check and try again.',

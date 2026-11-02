@@ -9,11 +9,9 @@ describe('newAccountApiGate', () => {
   it('refuses a 2 hour old workspace with no channel, and says when it opens', () => {
     const r = newAccountApiGate({ createdAt: ago(2), now, channelCount: 0, exempt: false });
     expect(r.allowed).toBe(false);
-    if (!r.allowed) {
-      expect(r.availableAt.toISOString()).toBe('2026-11-03T10:00:00.000Z');
-      expect(r.msg).toContain('2026-11-03T10:00:00.000Z');
-      expect(r.msg).toContain('24 hours');
-    }
+    expect(r.availableAt!.toISOString()).toBe('2026-11-03T10:00:00.000Z');
+    expect(r.msg).toContain('2026-11-03T10:00:00.000Z');
+    expect(r.msg).toContain('24 hours');
   });
 
   it('allows once a channel is connected', () => {
