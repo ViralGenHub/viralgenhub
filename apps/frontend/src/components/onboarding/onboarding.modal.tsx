@@ -28,6 +28,7 @@ import {
   upstreamConnectors,
 } from '@gitroom/frontend/components/public-api/public.component';
 import { McpClientIcon } from '@gitroom/frontend/components/public-api/mcp.client.icons';
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 
 interface OnboardingModalProps {
   onClose: () => void;
@@ -230,12 +231,11 @@ const OnboardingStep1: FC<{ onNext: () => void; onSkip: () => void }> = ({
                     width={28}
                     height={28}
                   />
-                  <SafeImage
-                    src={`/icons/platforms/${integration.identifier}.png`}
+                  <PlatformIcon
+                    identifier={integration.identifier}
+                    size={14}
                     className="rounded-full absolute -bottom-[3px] -end-[3px] border border-fifth"
                     alt={integration.identifier}
-                    width={14}
-                    height={14}
                   />
                 </div>
                 <span className="text-[13px]">{integration.name}</span>

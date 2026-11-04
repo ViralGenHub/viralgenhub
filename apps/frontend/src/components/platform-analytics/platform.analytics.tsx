@@ -5,7 +5,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { orderBy, uniq } from 'lodash';
 import clsx from 'clsx';
 import ImageWithFallback from '@gitroom/react/helpers/image.with.fallback';
-import SafeImage from '@gitroom/react/helpers/safe.image';
 import { useFetch } from '@gitroom/helpers/utils/custom.fetch';
 import { RenderAnalytics } from '@gitroom/frontend/components/platform-analytics/render.analytics';
 import { Select } from '@gitroom/react/form/select';
@@ -17,6 +16,10 @@ import { useVariables } from '@gitroom/react/helpers/variable.context';
 import useCookie from 'react-use-cookie';
 import { SVGLine } from '@gitroom/frontend/components/launches/launches.component';
 import { LoadingComponent } from '@gitroom/frontend/components/layout/loading';
+import {
+  PlatformIcon,
+  platformIconSrc,
+} from '@gitroom/frontend/components/launches/platform.icon';
 const allowedIntegrations = [
   'facebook',
   'instagram',
@@ -280,19 +283,18 @@ export const PlatformAnalytics = () => {
                     <SVGLine />
                   </div>
                   <ImageWithFallback
-                    fallbackSrc={`/icons/platforms/${integration.identifier}.png`}
+                    fallbackSrc={platformIconSrc(integration.identifier)}
                     src={integration.picture}
                     className="rounded-[8px]"
                     alt={integration.identifier}
                     width={36}
                     height={36}
                   />
-                  <SafeImage
-                    src={`/icons/platforms/${integration.identifier}.png`}
+                  <PlatformIcon
+                    identifier={integration.identifier}
+                    size={18.41}
                     className="rounded-[8px] absolute z-10 bottom-[5px] -end-[5px] border border-fifth"
                     alt={integration.identifier}
-                    width={18.41}
-                    height={18.41}
                   />
                 </div>
                 <div

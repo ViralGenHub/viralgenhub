@@ -1,5 +1,6 @@
 'use client';
 
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 import React, {
   FC,
   Fragment,
@@ -1251,21 +1252,12 @@ export const CalendarColumn: FC<{
                           width={32}
                           height={32}
                         />
-                        {selectedIntegrations.identifier === 'youtube' ? (
-                          <img
-                            src="/icons/platforms/youtube.svg"
-                            className="absolute z-10 -bottom-[5px] -end-[5px]"
-                            width={20}
-                          />
-                        ) : (
-                          <SafeImage
-                            src={`/icons/platforms/${selectedIntegrations.identifier}.png`}
-                            className="rounded-[8px] absolute z-10 -bottom-[5px] -end-[5px] border border-fifth"
-                            alt={selectedIntegrations.identifier}
-                            width={20}
-                            height={20}
-                          />
-                        )}
+                        <PlatformIcon
+                          identifier={selectedIntegrations.identifier}
+                          className="rounded-[8px] absolute z-10 -bottom-[5px] -end-[5px] border border-fifth"
+                          alt={selectedIntegrations.identifier}
+                          size={20}
+                        />
                       </div>
                     </div>
                   ))}
@@ -1550,9 +1542,10 @@ const CalendarItem: FC<{
             className="w-[20px] h-[20px] rounded-[8px]"
             src={post.integration.picture! || '/no-picture.jpg'}
           />
-          <img
+          <PlatformIcon
+            identifier={post.integration?.providerIdentifier}
             className="w-[12px] h-[12px] rounded-[8px] absolute z-10 top-[10px] end-0 border border-fifth"
-            src={`/icons/platforms/${post.integration?.providerIdentifier}.png`}
+            size={12}
           />
         </div>
         <div

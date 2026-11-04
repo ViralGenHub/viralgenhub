@@ -16,6 +16,7 @@ import {
   useDecisionModal,
   useModals,
 } from '@gitroom/frontend/components/layout/new-modal';
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 
 export function useHasScroll(ref: RefObject<HTMLElement | null>): boolean {
   const [hasHorizontalScroll, setHasHorizontalScroll] = useState(false);
@@ -177,21 +178,17 @@ export const SelectCurrent: FC = () => {
                     e.currentTarget.srcset = '/no-picture.jpg';
                   }}
                 />
-                {integration.identifier === 'youtube' ? (
-                  <img
-                    src="/icons/platforms/youtube.svg"
-                    className="absolute z-10 bottom-[2px] end-[2px] min-w-[12px]"
-                    width={12}
-                  />
-                ) : (
-                  <SafeImage
-                    src={`/icons/platforms/${integration.identifier}.png`}
-                    className="min-w-[12px] min-h-[12px] rounded-[3px] absolute z-10 bottom-[6px] end-[6px]"
-                    alt={integration.identifier}
-                    width={12}
-                    height={12}
-                  />
-                )}
+                <PlatformIcon
+                  identifier={integration.identifier}
+                  size={12}
+                  className={clsx(
+                    'min-w-[12px] min-h-[12px] rounded-[3px] absolute z-10',
+                    integration.identifier === 'youtube'
+                      ? 'bottom-[2px] end-[2px]'
+                      : 'bottom-[6px] end-[6px]'
+                  )}
+                  alt={integration.identifier}
+                />
               </div>
             </div>
           ))}

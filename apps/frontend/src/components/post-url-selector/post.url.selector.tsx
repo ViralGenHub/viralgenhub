@@ -1,5 +1,6 @@
 'use client';
 
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 import { EventEmitter } from 'events';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { TopTitle } from '@gitroom/frontend/components/launches/helpers/top.title.component';
@@ -178,13 +179,10 @@ export const PostSelector: FC<{
                               src={p.integration.picture}
                               className="w-[32px] h-[32px] rounded-full"
                             />
-                            <img
+                            <PlatformIcon
+                              identifier={p?.integration?.providerIdentifier}
+                              size={20}
                               className="w-[20px] h-[20px] rounded-full absolute z-10 -bottom-[5px] -end-[5px] border border-fifth"
-                              src={
-                                `/icons/platforms/` +
-                                p?.integration?.providerIdentifier +
-                                '.png'
-                              }
                             />
                           </div>
                           <div>{p.integration.name}</div>
