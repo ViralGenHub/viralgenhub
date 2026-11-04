@@ -14,7 +14,6 @@ import useSWR from 'swr';
 import { orderBy } from 'lodash';
 import { SVGLine } from '@gitroom/frontend/components/launches/launches.component';
 import ImageWithFallback from '@gitroom/react/helpers/image.with.fallback';
-import SafeImage from '@gitroom/react/helpers/safe.image';
 import { useFetch } from '@gitroom/helpers/utils/custom.fetch';
 import { useWaitForClass } from '@gitroom/helpers/utils/use.wait.for.class';
 import { MultiMediaComponent } from '@gitroom/frontend/components/media/media.component';
@@ -24,6 +23,10 @@ import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useT } from '@gitroom/react/translation/get.transation.service.client';
 import { useUser } from '@gitroom/frontend/components/layout/user.context';
 import { LockedFeaturePanel } from '@gitroom/frontend/components/billing/plan.lock';
+import {
+  PlatformIcon,
+  platformIconSrc,
+} from '@gitroom/frontend/components/launches/platform.icon';
 
 export const MediaPortal: FC<{
   media: { path: string; id: string }[];
@@ -176,19 +179,18 @@ export const AgentList: FC<{ onChange: (arr: any[]) => void }> = ({
                   <SVGLine />
                 </div>
                 <ImageWithFallback
-                  fallbackSrc={`/icons/platforms/${integration.identifier}.png`}
+                  fallbackSrc={platformIconSrc(integration.identifier)}
                   src={integration.picture}
                   className="rounded-[8px]"
                   alt={integration.identifier}
                   width={36}
                   height={36}
                 />
-                <SafeImage
-                  src={`/icons/platforms/${integration.identifier}.png`}
+                <PlatformIcon
+                  identifier={integration.identifier}
+                  size={18.41}
                   className="rounded-[8px] absolute z-10 bottom-[5px] -end-[5px] border border-fifth"
                   alt={integration.identifier}
-                  width={18.41}
-                  height={18.41}
                 />
               </div>
               <div

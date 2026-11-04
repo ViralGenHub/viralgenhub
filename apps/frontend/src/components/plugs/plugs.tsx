@@ -5,7 +5,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { capitalize, orderBy } from 'lodash';
 import clsx from 'clsx';
 import ImageWithFallback from '@gitroom/react/helpers/image.with.fallback';
-import SafeImage from '@gitroom/react/helpers/safe.image';
 import { useFetch } from '@gitroom/helpers/utils/custom.fetch';
 import { Select } from '@gitroom/react/form/select';
 import { Button } from '@gitroom/react/form/button';
@@ -15,6 +14,10 @@ import { PlugsContext } from '@gitroom/frontend/components/plugs/plugs.context';
 import { Plug } from '@gitroom/frontend/components/plugs/plug';
 import { useT } from '@gitroom/react/translation/get.transation.service.client';
 import { LoadingComponent } from '@gitroom/frontend/components/layout/loading';
+import {
+  PlatformIcon,
+  platformIconSrc,
+} from '@gitroom/frontend/components/launches/platform.icon';
 export const Plugs = () => {
   const fetch = useFetch();
   const router = useRouter();
@@ -156,19 +159,18 @@ export const Plugs = () => {
                     </div>
                   )}
                   <ImageWithFallback
-                    fallbackSrc={`/icons/platforms/${integration.identifier}.png`}
+                    fallbackSrc={platformIconSrc(integration.identifier)}
                     src={integration.picture}
                     className="rounded-[8px]"
                     alt={integration.identifier}
                     width={36}
                     height={36}
                   />
-                  <SafeImage
-                    src={`/icons/platforms/${integration.identifier}.png`}
+                  <PlatformIcon
+                    identifier={integration.identifier}
+                    size={18.41}
                     className="rounded-[8px] absolute z-10 bottom-[-5px] -end-[5px] border border-fifth"
                     alt={integration.identifier}
-                    width={18.41}
-                    height={18.41}
                   />
                 </div>
                 <div

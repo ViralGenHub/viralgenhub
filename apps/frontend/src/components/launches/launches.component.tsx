@@ -1,11 +1,14 @@
 'use client';
 
 import {
+  PlatformIcon,
+  platformIconSrc,
+} from '@gitroom/frontend/components/launches/platform.icon';
+import {
   AddProviderButton,
   CustomVariables,
 } from '@gitroom/frontend/components/launches/add.provider.component';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import SafeImage from '@gitroom/react/helpers/safe.image';
 import { groupBy, orderBy } from 'lodash';
 import { planDisplayName } from '@gitroom/nestjs-libraries/database/prisma/subscriptions/pricing';
 import { CalendarWeekProvider } from '@gitroom/frontend/components/launches/calendar.context';
@@ -410,21 +413,12 @@ export const MenuComponent: FC<
           width={36}
           height={36}
         />
-        {integration.identifier === 'youtube' ? (
-          <img
-            src="/icons/platforms/youtube.svg"
-            className="absolute z-10 bottom-[5px] -end-[5px]"
-            width={20}
-          />
-        ) : (
-          <SafeImage
-            src={`/icons/platforms/${integration.identifier}.png`}
-            className="rounded-[8px] absolute z-10 bottom-[5px] -end-[5px] border border-fifth"
-            alt={integration.identifier}
-            width={18.41}
-            height={18.41}
-          />
-        )}
+        <PlatformIcon
+          identifier={integration.identifier}
+          className="rounded-[8px] absolute z-10 bottom-[5px] -end-[5px] border border-fifth"
+          alt={integration.identifier}
+          size={18.41}
+        />
       </div>
       <div
         // @ts-ignore
@@ -780,7 +774,7 @@ export const LaunchesComponent = () => {
                 {sortedIntegrations.slice(0, 3).map((integration: any) => (
                   <ImageWithFallback
                     key={integration.id}
-                    fallbackSrc={`/icons/platforms/${integration.identifier}.png`}
+                    fallbackSrc={platformIconSrc(integration.identifier)}
                     src={integration.picture}
                     className="rounded-full border-2 border-btnSimple"
                     alt={integration.identifier}

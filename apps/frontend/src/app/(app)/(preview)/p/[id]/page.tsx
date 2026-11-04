@@ -1,3 +1,4 @@
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 import { internalFetch } from '@gitroom/helpers/utils/internal.fetch';
 import { sanitizePostContent } from '@gitroom/helpers/utils/sanitize.post.content';
 export const dynamic = 'force-dynamic';
@@ -124,10 +125,11 @@ export default async function Auth(
                         />
                       </div>
                       <div className="absolute -end-[5px] -bottom-[5px] w-[24px] h-[24px] z-[20]">
-                        <img
+                        <PlatformIcon
+                          identifier={post[0].integration.providerIdentifier}
+                          size={24}
                           className="w-full h-full bg-newBgColor aspect-square rounded-full"
                           alt={post[0].integration.providerIdentifier}
-                          src={`/icons/platforms/${post[0].integration.providerIdentifier}.png`}
                         />
                       </div>
                     </div>

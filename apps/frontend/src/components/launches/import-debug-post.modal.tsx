@@ -1,5 +1,6 @@
 'use client';
 
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 import { FC, useCallback, useMemo, useState } from 'react';
 import { useFetch } from '@gitroom/helpers/utils/custom.fetch';
 import { useToaster } from '@gitroom/react/toaster/toaster';
@@ -229,8 +230,9 @@ export const ImportDebugPostModal: FC<{ close: () => void }> = ({ close }) => {
                     <div className="text-[13px] text-textColor">
                       {integration.name}
                     </div>
-                    <img
-                      src={`/icons/platforms/${integration.identifier}.png`}
+                    <PlatformIcon
+                      identifier={integration.identifier}
+                      size={14}
                       className="w-[14px] h-[14px] rounded-[4px] ml-auto"
                       alt={integration.identifier}
                     />

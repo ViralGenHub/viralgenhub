@@ -1,10 +1,10 @@
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 import { useIntegration } from '@gitroom/frontend/components/launches/helpers/use.integration';
 import { useMediaDirectory } from '@gitroom/react/helpers/use.media.directory';
 import clsx from 'clsx';
 import { VideoOrImage } from '@gitroom/react/helpers/video.or.image';
 import { FC } from 'react';
 import { textSlicer } from '@gitroom/helpers/utils/count.length';
-import SafeImage from '@gitroom/react/helpers/safe.image';
 import { useLaunchStore } from '@gitroom/frontend/components/new-launch/store';
 import { stripHtmlValidation } from '@gitroom/helpers/utils/strip.html.validation';
 
@@ -76,12 +76,11 @@ export const GeneralPreviewComponent: FC<{
                 />
 
                 {!!shown && (
-                  <SafeImage
-                    src={`/icons/platforms/${shown.identifier}.png`}
+                  <PlatformIcon
+                    identifier={shown.identifier}
                     className="min-w-[20px] min-h-[20px] rounded-full absolute z-10 -bottom-[5px] -end-[5px] border border-fifth"
                     alt={shown.identifier}
-                    width={20}
-                    height={20}
+                    size={20}
                   />
                 )}
               </div>
