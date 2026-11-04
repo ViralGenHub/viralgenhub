@@ -1,5 +1,6 @@
 'use client';
 
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 import { stashExtensionCode } from '@gitroom/frontend/components/launches/extension.code.stash';
 import { useModals } from '@gitroom/frontend/components/layout/new-modal';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
@@ -960,18 +961,16 @@ export const AddProviderComponent: FC<{
                   )}
                 >
                   <div>
-                    {item.identifier === 'youtube' ? (
-                      <img src={`/icons/platforms/youtube.svg`} />
-                    ) : (
-                      <img
-                        className={clsx(
-                          'w-[32px] h-[32px]',
-                          item.identifier !== 'google_my_business' &&
-                            'rounded-full'
-                        )}
-                        src={`/icons/platforms/${item.identifier}.png`}
-                      />
-                    )}
+                    <PlatformIcon
+                      identifier={item.identifier}
+                      size={32}
+                      alt={item.name}
+                      className={clsx(
+                        'w-[32px] h-[32px]',
+                        item.identifier !== 'google_my_business' &&
+                          'rounded-full'
+                      )}
+                    />
                   </div>
                   <div
                     className={clsx(

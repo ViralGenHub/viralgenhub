@@ -30,6 +30,7 @@ class Empty {
 
 export { PostComment } from '@gitroom/frontend/components/new-launch/providers/post-comment.enum';
 import { PostComment } from '@gitroom/frontend/components/new-launch/providers/post-comment.enum';
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 
 interface CharacterCondition {
   format: 'no-pictures' | 'with-pictures';
@@ -324,12 +325,11 @@ export const withProvider = function <T extends object>(params: {
                           className="min-w-[42px] min-h-[42px] w-[42px] h-[42px] rounded-full"
                           src={selectedIntegration?.integration.picture}
                         />
-                        <SafeImage
-                          alt={selectedIntegration?.integration.identifier}
-                          width={16}
-                          height={16}
+                        <PlatformIcon
+                          identifier={selectedIntegration?.integration.identifier}
+                          size={16}
                           className="rounded-[16px] min-w-[16px] min-h-[16px] w-[16px] h-[16px] absolute bottom-0 end-0"
-                          src={`/icons/platforms/${selectedIntegration?.integration.identifier}.png`}
+                          alt={selectedIntegration?.integration.identifier}
                         />
                       </div>
                       <div className="text-[20px]">{selectedIntegration?.integration.name}</div>

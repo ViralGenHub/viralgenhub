@@ -2,28 +2,21 @@
 
 import { FC } from 'react';
 import clsx from 'clsx';
-import SafeImage from '@gitroom/react/helpers/safe.image';
 import { useLaunchStore } from '@gitroom/frontend/components/new-launch/store';
 import { useShallow } from 'zustand/react/shallow';
 import { useExistingData } from '@gitroom/frontend/components/launches/helpers/use.existing.data';
 import ImageWithFallback from '@gitroom/react/helpers/image.with.fallback';
 import { Check } from '@gitroom/frontend/components/launches/tags.component';
 import { Integrations } from '@gitroom/frontend/components/launches/calendar.context';
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 
 const PlatformBadge: FC<{ integration: Integrations }> = ({ integration }) => {
-  return integration.identifier === 'youtube' ? (
-    <img
-      src="/icons/platforms/youtube.svg"
-      className="absolute z-10 bottom-0 -end-[5px] min-w-[16px]"
-      width={16}
-    />
-  ) : (
-    <SafeImage
-      src={`/icons/platforms/${integration.identifier}.png`}
+  return (
+    <PlatformIcon
+      identifier={integration.identifier}
+      size={16}
       className="rounded-[4px] absolute z-10 bottom-0 -end-[5px] min-w-[16px] min-h-[16px]"
       alt={integration.identifier}
-      width={16}
-      height={16}
     />
   );
 };

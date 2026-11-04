@@ -20,6 +20,7 @@ import { deleteDialog } from '@gitroom/react/helpers/delete.dialog';
 import SafeImage from '@gitroom/react/helpers/safe.image';
 import { useT } from '@gitroom/react/translation/get.transation.service.client';
 import { useFormatting } from '@gitroom/frontend/components/launches/helpers/use.formatting';
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 const RenderRedditComponent: FC<{
   type: string;
   images?: Array<{
@@ -127,10 +128,9 @@ const RedditPreview: FC = (props) => {
                         alt="x"
                         className="rounded-full w-full h-full relative z-[2]"
                       />
-                      <SafeImage
-                        width={24}
-                        height={24}
-                        src={`/icons/platforms/${integration?.identifier!}.png`}
+                      <PlatformIcon
+                        identifier={integration?.identifier}
+                        size={24}
                         alt="x"
                         className="rounded-full absolute -end-[5px] -bottom-[5px] z-[2]"
                       />

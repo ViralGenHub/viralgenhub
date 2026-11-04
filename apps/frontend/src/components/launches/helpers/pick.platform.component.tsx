@@ -1,3 +1,4 @@
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Integrations } from '@gitroom/frontend/components/launches/calendar.context';
 import { useMoveToIntegrationListener } from '@gitroom/frontend/components/launches/helpers/use.move.to.integration';
@@ -251,21 +252,12 @@ export const PickPlatforms: FC<{
                           width={32}
                           height={32}
                         />
-                        {integration.identifier === 'youtube' ? (
-                          <img
-                            src="/icons/platforms/youtube.svg"
-                            className="absolute z-10 bottom-0 -end-[5px]"
-                            width={20}
-                          />
-                        ) : (
-                          <SafeImage
-                            src={`/icons/platforms/${integration.identifier}.png`}
-                            className="rounded-full absolute z-10 -bottom-[5px] -end-[5px] border border-fifth"
-                            alt={integration.identifier}
-                            width={20}
-                            height={20}
-                          />
-                        )}
+                        <PlatformIcon
+                          identifier={integration.identifier}
+                          className="rounded-full absolute z-10 -bottom-[5px] -end-[5px] border border-fifth"
+                          alt={integration.identifier}
+                          size={20}
+                        />
                       </div>
                     </div>
                   ) : (
@@ -290,12 +282,11 @@ export const PickPlatforms: FC<{
                               width={24}
                               height={24}
                             />
-                            <SafeImage
-                              src={`/icons/platforms/${integration.identifier}.png`}
+                            <PlatformIcon
+                              identifier={integration.identifier}
                               className="rounded-full absolute z-10 -bottom-[5px] -end-[5px] border border-fifth"
                               alt={integration.identifier}
-                              width={15}
-                              height={15}
+                              size={15}
                             />
                           </div>
                           <div>

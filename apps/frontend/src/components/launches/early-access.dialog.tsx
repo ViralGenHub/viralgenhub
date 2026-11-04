@@ -1,5 +1,6 @@
 'use client';
 
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 import React, { FC, useCallback, useState } from 'react';
 import clsx from 'clsx';
 import useSWR from 'swr';
@@ -256,12 +257,9 @@ export const EarlyAccessDialog: FC<
                     onConnect(p.identifier);
                   }}
                 >
-                  <img
-                    src={
-                      p.identifier === 'youtube'
-                        ? '/icons/platforms/youtube.svg'
-                        : `/icons/platforms/${p.identifier}.png`
-                    }
+                  <PlatformIcon
+                    identifier={p.identifier}
+                    size={20}
                     alt=""
                     className="w-[20px] h-[20px] rounded-full"
                   />

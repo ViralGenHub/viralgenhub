@@ -67,6 +67,7 @@ import { useShortlinkPreference } from '@gitroom/frontend/components/settings/sh
 import dayjs from 'dayjs';
 import { Button } from '@gitroom/react/form/button';
 import { useClickOutside } from '@mantine/hooks';
+import { PlatformIcon } from '@gitroom/frontend/components/launches/platform.icon';
 
 export const ManageModal: FC<AddEditModalProps> = (props) => {
   const t = useT();
@@ -180,8 +181,9 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
     return (
       <div className="flex items-center gap-[10px]">
         <div className="relative mobile:hidden">
-          <img
-            src={`/icons/platforms/${currentIntegration.identifier}.png`}
+          <PlatformIcon
+            identifier={currentIntegration.identifier}
+            size={20}
             className="w-[20px] h-[20px] rounded-[4px]"
             alt={currentIntegration.identifier}
           />
