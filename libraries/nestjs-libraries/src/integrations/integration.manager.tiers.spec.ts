@@ -131,4 +131,10 @@ describe('IntegrationManager tiers', () => {
       expect(r.social.every((p: any) => !p.staff && p.comingSoon)).toBe(true);
     });
   });
+
+  it('lets the TikTok composer call creatorInfo but not internal methods', () => {
+    expect(manager.isPublicFunction('tiktok', 'creatorInfo')).toBe(true);
+    expect(manager.isPublicFunction('tiktok', 'refreshToken')).toBe(false);
+    expect(manager.isPublicFunction('tiktok', 'authenticate')).toBe(false);
+  });
 });

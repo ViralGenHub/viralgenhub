@@ -264,4 +264,7 @@ export const providerHelperFunctions = [
   'subreddits',
   'tags',
   'publications',
+  // TikTok composer: live creator_info (nickname, privacy options, disabled interactions,
+  // max length). Without it the composer reads the 400 as "cannot post" (VGH #523).
+  'creatorInfo',
 ];
