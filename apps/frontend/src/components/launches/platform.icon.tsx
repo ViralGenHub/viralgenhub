@@ -6,12 +6,12 @@ import type { FC, ReactEventHandler } from 'react';
  * Single place that renders a social platform icon.
  *
  * YouTube API Services branding rules (developers.google.com/youtube/terms/branding-guidelines,
- * policy III.F.2a): use the official full-colour logo as supplied, never smaller than 20dp tall,
+ * policy III.F.2a): use the official full-colour icon as supplied, at its own proportions (45:32),
  * never cropped into a circle/rounded shape, never given a border or other modification.
+ * Joseph (11 Nov 2026): same footprint as the other platforms' icons, not larger.
  * Every other platform keeps its existing PNG + the caller's styling.
  */
 export const YOUTUBE_ICON_SRC = '/icons/platforms/youtube.svg';
-export const YOUTUBE_MIN_HEIGHT = 20;
 
 export const isYoutube = (identifier?: string | null) =>
   identifier === 'youtube';
@@ -30,7 +30,7 @@ export const youtubeSafeClassName = (className?: string) =>
 
 type Props = {
   identifier?: string | null;
-  /** Requested box size in px. YouTube is raised to at least 20px tall. */
+  /** Requested box size in px. YouTube uses it as its width and keeps its 45:32 ratio. */
   size?: number;
   className?: string;
   alt?: string;
@@ -45,14 +45,17 @@ export const PlatformIcon: FC<Props> = ({
   onError,
 }) => {
   if (isYoutube(identifier)) {
-    const height = Math.max(size, YOUTUBE_MIN_HEIGHT);
+    // Same footprint as every other platform icon (a size x size box), but the official icon is
+    // drawn at its own 45:32 proportions: never squashed, stretched, cropped or bordered.
+    const width = size;
+    const height = Math.round(((size * 32) / 45) * 100) / 100;
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={YOUTUBE_ICON_SRC}
         alt={alt || 'YouTube'}
         className={youtubeSafeClassName(className)}
-        style={{ height, minHeight: YOUTUBE_MIN_HEIGHT, width: 'auto' }}
+        style={{ width, height }}
         onError={onError}
       />
     );
