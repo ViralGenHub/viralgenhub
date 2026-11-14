@@ -8,9 +8,22 @@ import type { FC, ReactEventHandler } from 'react';
  * YouTube API Services branding rules (developers.google.com/youtube/terms/branding-guidelines,
  * policy III.F.2a): use the official full-colour icon as supplied, at its own proportions (45:32),
  * never cropped into a circle/rounded shape, never given a border or other modification.
- * Joseph (11 Nov 2026): same footprint as the other platforms' icons, not larger.
+ * Google V.3 (12 Nov 2026): rendered height must never be under 20 CSS px, so the YouTube icon is
+ * clamped to a 20px minimum height (>= 28.13px wide) wherever it is used, even as a small badge.
  * Every other platform keeps its existing PNG + the caller's styling.
  */
+export const YOUTUBE_MIN_HEIGHT = 20;
+export const YOUTUBE_ASPECT = 45 / 32;
+
+/** Rendered size of the YouTube icon for a requested box size: 45:32, never under 20px tall. */
+export const youtubeIconSize = (size: number) => {
+  const height = Math.max(YOUTUBE_MIN_HEIGHT, (size * 32) / 45);
+  return {
+    width: Math.round(height * YOUTUBE_ASPECT * 100) / 100,
+    height: Math.round(height * 100) / 100,
+  };
+};
+
 export const YOUTUBE_ICON_SRC = '/icons/platforms/youtube.svg';
 
 export const isYoutube = (identifier?: string | null) =>
@@ -30,7 +43,7 @@ export const youtubeSafeClassName = (className?: string) =>
 
 type Props = {
   identifier?: string | null;
-  /** Requested box size in px. YouTube uses it as its width and keeps its 45:32 ratio. */
+  /** Requested box size in px. YouTube keeps its 45:32 ratio and is never under 20px tall. */
   size?: number;
   className?: string;
   alt?: string;
@@ -45,17 +58,24 @@ export const PlatformIcon: FC<Props> = ({
   onError,
 }) => {
   if (isYoutube(identifier)) {
-    // Same footprint as every other platform icon (a size x size box), but the official icon is
-    // drawn at its own 45:32 proportions: never squashed, stretched, cropped or bordered.
-    const width = size;
-    const height = Math.round(((size * 32) / 45) * 100) / 100;
+    // Official icon at its own 45:32 proportions, never under 20px tall, never squashed,
+    // stretched, cropped or bordered. Inline size wins over any caller class.
+    const { width, height } = youtubeIconSize(size);
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={YOUTUBE_ICON_SRC}
         alt={alt || 'YouTube'}
         className={youtubeSafeClassName(className)}
-        style={{ width, height }}
+        style={{
+          width,
+          height,
+          minWidth: width,
+          minHeight: height,
+          maxWidth: 'none',
+          maxHeight: 'none',
+          flexShrink: 0,
+        }}
         onError={onError}
       />
     );
