@@ -39,7 +39,7 @@ export class InstagramProvider
     'pages_read_engagement',
     'business_management',
     'instagram_content_publish',
-    'instagram_manage_comments',
+    // 'instagram_manage_comments', // first comment: pending Meta App Review (18 Nov 2026); restore when approved
     'instagram_manage_insights',
   ];
   override maxConcurrentJob = 400;

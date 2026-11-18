@@ -36,9 +36,9 @@ export class FacebookProvider extends SocialAbstract implements SocialProvider {
     'pages_show_list',
     'business_management',
     'pages_manage_posts',
-    'pages_manage_engagement',
+    // 'pages_manage_engagement', // first comment: pending Meta App Review (submission 1816248632794632, 18 Nov 2026); restore when approved
     'pages_read_engagement',
-    'pages_read_user_content',
+    // 'pages_read_user_content', // pending Meta App Review, restore with pages_manage_engagement
     'read_insights',
   ];
   override maxConcurrentJob = 500; // Facebook has reasonable rate limits

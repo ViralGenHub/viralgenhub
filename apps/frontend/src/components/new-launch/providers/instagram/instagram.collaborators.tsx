@@ -118,5 +118,5 @@ export default withProvider<InstagramDto>({
   CustomPreviewComponent: InstagramPreview,
   dto: InstagramDto,
   maximumCharacters: 2200,
-  comments: 'no-media'
+  comments: false, // first comment off until instagram_manage_comments is approved (was 'no-media')
 });

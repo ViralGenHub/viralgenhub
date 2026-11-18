@@ -124,6 +124,7 @@ export const FacebookSettings = () => {
 };
 
 export default withProvider<FacebookDto>({
+  comments: false, // first comment off until pages_manage_engagement is approved (restore: remove this line)
   postComment: PostComment.COMMENT,
   minimumCharacters: [],
   SettingsComponent: FacebookSettings,
